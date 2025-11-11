@@ -1,0 +1,81 @@
+# OpenGlass 盲人导航系统 - Docker Compose配置
+# 使用方法:
+#   docker-compose build  # 构建镜像
+#   docker-compose up -d  # 启动服务
+#   docker-compose logs -f  # 查看日志
+#   docker-compose down  # 停止服务
+
+version: '3.8'
+
+services:
+  openglass:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: openglass-prod
+    
+    # 端口映射
+    ports:
+      - "8001:8001"
+    
+    # 数据卷挂载
+    volumes:
+      # 只读挂载 (ro = read-only)
+      - ./music:/app/music:ro
+      # 可选：如果使用YOLO模型
+      # - ./models:/app/models:ro
+      # 数据目录 (可读写)
+      - ./data:/app/data
+    
+    # 环境变量
+    environment:
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+      - SERVER_PORT=8001
+    
+    # 重启策略
+    restart: unless-stopped
+    
+    # 资源限制 (适配2核CPU服务器)
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    
+    # 日志配置
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # 网络配置
+    networks:
+      - openglass-network
+    
+    # 健康检查
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:8001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+# 网络配置
+networks:
+  openglass-network:
+    driver: bridge
+
+# 可选：如果需要GPU支持，取消下面的注释
+# services:
+#   openglass:
+#     deploy:
+#       resources:
+#         reservations:
+#           devices:
+#             - driver: nvidia
+#               count: 1
+#               capabilities: [gpu]

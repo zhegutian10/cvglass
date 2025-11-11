@@ -1,0 +1,81 @@
+# OpenGlass - Docker构建排除文件
+# 这些文件和目录不会被复制到Docker镜像中
+
+# ========== 测试系统 (排除) ==========
+test/
+test/*
+monitor/
+monitor/*
+
+# ========== Git相关 ==========
+.git/
+.gitignore
+.gitattributes
+
+# ========== Python相关 ==========
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+ENV/
+env/
+
+# ========== IDE和编辑器 ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ========== 文档 ==========
+readme/
+*.md
+!README.md
+
+# ========== 日志和临时文件 ==========
+*.log
+*.tmp
+*.temp
+*.bak
+*.cache
+
+# ========== 数据文件 (可选) ==========
+data/
+*.json
+!faces_data.json
+
+# ========== 模型文件 (如果很大) ==========
+# models/
+# *.pt
+# *.pth
+# *.onnx
+
+# ========== 开发工具 ==========
+Dockerfile
+docker-compose.yml
+.dockerignore
+generate_cert.py
+
+# ========== 监控系统 ==========
+monitor/
+
+# ========== 环境变量 (安全) ==========
+.env.local
+.env.development
+.env.production
+.env.backup
+
+# ========== 其他 ==========
+*.pdf
+*.zip
+*.tar.gz
+screenshots/
