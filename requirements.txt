@@ -1,0 +1,41 @@
+# Python版本要求: 3.10 或 3.11 (推荐3.11)
+# 安装命令: pip install -r requirements.txt
+
+# ========== Web框架 ==========
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+websockets>=12.0
+
+# ========== 环境变量 ==========
+python-dotenv>=1.0.0
+
+# ========== 计算机视觉 ==========
+opencv-python>=4.8.0
+numpy>=1.24.0,<2.0.0
+
+# ========== AI服务 ==========
+# 通义千问SDK (ASR, TTS, 对话)
+dashscope>=1.14.0
+# OpenAI兼容接口 (用于Qwen-VL)
+openai>=1.0.0
+
+# ========== 深度学习 (可选，用于YOLO) ==========
+# 如果使用GPU，请安装对应CUDA版本的torch
+# torch>=2.0.0
+# torchvision>=0.15.0
+# ultralytics>=8.0.0
+
+# ========== 语音合成 ==========
+pyttsx3>=2.90
+# Windows需要额外安装: pywin32
+# Linux需要额外安装: espeak
+
+# ========== 网络请求 ==========
+requests>=2.31.0
+
+# ========== HTTPS证书生成 ==========
+cryptography>=41.0.0
+
+# ========== 其他工具 ==========
+Pillow>=10.0.0
